@@ -21,7 +21,7 @@ jobs:
         with:
           path: "path/to/requirements.txt"
 
-      - name: Run python script
+      - name: Run python script with gihub secrets
         env:
           JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
