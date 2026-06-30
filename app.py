@@ -1,6 +1,7 @@
 import requests          
 import json              
 import time 
+import textwrap
 from requests.auth import HTTPBasicAuth 
 from google import genai 
 import os
@@ -72,10 +73,22 @@ def json_text_extractor(json_data):
   return all_tickets_text
 
 json_out =json_text_extractor(response_data)
-def agent(jira_tickets):
+
+file_daily_report = "Instruction-daily-report.md"
+
+with open(file_daily_report, "r") as file:
+    daily_report=file.read()
+
+file_weekly_report = "Instruction-weekly-report.md"
+
+with open(file_weekly_report, "r") as file:
+    weekly_report=file.read()
+
+
+def agent(jira_tickets, weekly_or_daily_report):
         gem_response = client.models.generate_content(
         model='gemini-2.5-flash',
-        contents={'text': f' {json_out}can pls give like a simple grade for each ticket and tell ehy its good ot bad CRITICAL Must be 2000 or fewer in length'},
+        contents={'text': f'{weekly_or_daily_report} {jira_tickets}'},
         # config={
         #     'temperature': 0,
         #     'top_p': 0.95,
@@ -84,20 +97,29 @@ def agent(jira_tickets):
     )
         return gem_response
 
-gemini_response=agent(json_out)
+def discord_message(cut_report):
+    data = {
+        "content": f"{cut_report}"
+    }
+
+    discord_response = requests.post(DISCORD_WEBHOOK_URL, json=data)
+
+    if discord_response.status_code == 204:
+        print("message secesfully send ")
+    else:
+        print(f"error code ={discord_response.status_code}{discord_response.text}")
+        
+    return discord_response
+
+def discord_message_cutter():
+    slited_text = textwrap.wrap(gemini_response.text, width=1800, break_long_words=False, replace_whitespace=False)
+        
+    for idx, chunk in enumerate(slited_text):
+            message_content = f"\n{chunk}"
+
+            discord_message(message_content)
+
+
+gemini_response=agent(json_out, daily_report)
 print(gemini_response)
-
-cut_report = gemini_response.text[:1890]
-
-data = {
-    "content": f"here is daily report {cut_report}"
-}
-
-
-discord_response = requests.post(DISCORD_WEBHOOK_URL, json=data)
-
-
-if discord_response.status_code == 204:
-    print("message secesfully send ")
-else:
-    print(f"error code ={discord_response.status_code}{discord_response.text}")
+discord_message_cutter()

@@ -1,0 +1,32 @@
+name: jira ai agent 
+on:  
+  schedule:
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-on-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup python
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13' 
+      
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v5
+        with:
+          path: "path/to/requirements.txt"
+
+      - name: Run python script
+        env:
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+        run: python app.py
