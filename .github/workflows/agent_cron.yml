@@ -1,3 +1,0 @@
-name: jira ai agent
-on: 
-  workflow_dispatch:
