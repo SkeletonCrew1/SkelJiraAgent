@@ -9,7 +9,7 @@ A pre-commit hook is a script that automatically runs before a git commit is fin
 ```bash
 pip install pre-commit
 ```
-### 2. Install the Git Hooks
+### Install the Git Hooks
 Then go to .github/hooks dirrectory and run
 ```bash
 pre-commit install

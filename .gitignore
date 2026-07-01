@@ -3,3 +3,5 @@
 venv/
 ENV/
 env/
+data.json
+__pycache__/
