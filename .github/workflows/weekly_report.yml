@@ -1,7 +1,7 @@
-name: jira ai agent 
-on:  
+name: jira ai agent
+on:
   schedule:
-    - cron: '30 5 * * *'
+    - cron: '0 7 * * 2'
   workflow_dispatch:
 
 jobs:
@@ -14,12 +14,12 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13' 
-      
+          python-version: '3.13'
+
       - name: Install Python dependencies
         uses: py-actions/py-dependency-install@v5
         with:
-          path: "path/to/requirements.txt"
+          path: "requirements.txt"
 
       - name: Run python script with gihub secrets
         env:
@@ -29,4 +29,4 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-        run: python app.py
+        run: python reports/weekly_report.py
