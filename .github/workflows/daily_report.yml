@@ -1,4 +1,5 @@
-name: jira ai agent
+name: Jira AI Agent daily run
+
 on:
   schedule:
     - cron: '30 9 * * *'
