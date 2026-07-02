@@ -1,10 +1,11 @@
 name: Jira AI Agent daily run
 
 on:
-  schedule:
-    - cron: '30 9 * * *'
   workflow_dispatch:
-
+  schedule:
+    - cron: "5 * * * *"
+      timezone: Europe/Kyiv
+      
 jobs:
   run-on-cron:
     runs-on: ubuntu-latest
