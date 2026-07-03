@@ -1,8 +1,9 @@
 name: Jira AI Agent daily run
 
 on:
+  workflow_dispatch: 
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "24 6 * * *"
 jobs:
   run-on-cron:
     runs-on: ubuntu-latest
@@ -20,12 +21,12 @@ jobs:
         with:
           path: "requirements.txt"
 
-      # - name: Run python script with gihub secrets
-      #   env:
-      #     JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
-      #     JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
-      #     JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      #     DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      #     GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Run python script with gihub secrets
+        env:
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-      #   run: python reports/daily_report.py
+        run: python reports/daily_report.py
