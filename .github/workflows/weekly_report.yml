@@ -3,7 +3,7 @@ name: Jira AI Agent weekly run
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * 2'
+    - cron: '0 4 * * 2'
 
 jobs:
   run-on-cron:

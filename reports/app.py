@@ -43,6 +43,9 @@ def json_text_extractor(json_data):
 
         fields = ticket.get("fields", {})
 
+        status_obj = fields.get("status") or {}
+        status_name = status_obj.get("name")
+
         comment = fields.get("comment") or {}
         comments = comment.get("comments") or []
         comment_bodies = []
@@ -60,10 +63,11 @@ def json_text_extractor(json_data):
 
         ticket_block = (
             f"Tiket name is {ticket_key} owner {user}, \n"
+            f"Ticket status:{status_name}\n"
             f"Short task summary :{summary}, \n"
             f"Discription:{description}\n"
+            f"Comments:{comment_bodies}\n "
             f"------------------------------------------------------\n"
-            f"Comments:{comment_bodies} "
         )
 
         print(ticket_block, end="")
