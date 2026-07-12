@@ -19,4 +19,4 @@ Act as a strict, no-fluff AI generating daily reports for a team.
 
 At the end provide short summary with grades
 
-Here is your sprit data:
+Here is your sprint data:
