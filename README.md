@@ -5,7 +5,7 @@
 ## How it Works
 The entire process runs automatically via GitHub Actions.
 
-**Fetch:**** A scheduled job triggers a script that pulls recent issues and sprint progress via the Jira API.
+**Fetch:**: A scheduled job triggers a script that pulls recent issues and sprint progress via the Jira API.
 **Process**: The raw JSON is parsed by a Python script to grab only the necessary details, which the AI model then analize.
 **Notify**: The finalized report is sent directly to our Discord server using a webhook.
 

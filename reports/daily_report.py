@@ -1,6 +1,6 @@
 from app import agent, discord_message_cutter, json_text_extractor, get_jira_data
 
-file_daily_report = "reports/prompts/Instruction-daily-report.md"
+file_daily_report = "prompts/Instruction-daily-report.md"
 
 with open(file_daily_report, "r") as file:
     daily_report = file.read()
